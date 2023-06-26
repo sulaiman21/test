@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from "@mui/material";
+import { useRoutes } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { routes } from "./routes";
+import theme from "./theme";
+import store from "./redux";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const content = useRoutes(routes);
+	return (
+		<HelmetProvider>
+			<Helmet titleTemplate="Test for Softoo" defaultTitle="Test for Softoo" />
+			<ReduxProvider store={store}>
+				<ThemeProvider theme={theme}>{content}</ThemeProvider>
+			</ReduxProvider>
+		</HelmetProvider>
+	);
 }
 
 export default App;
